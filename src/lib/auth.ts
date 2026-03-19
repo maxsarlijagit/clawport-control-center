@@ -10,7 +10,20 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials, req) {
-        // Add authorization logic here
+        // Admin credentials from env or default
+        const adminUser = process.env.ADMIN_USERNAME || "admin";
+        const adminPass = process.env.ADMIN_PASSWORD || "admin123";
+        
+        if (credentials?.username === adminUser && credentials?.password === adminPass) {
+          return {
+            id: "1",
+            name: "Administrador",
+            email: "admin@framelab.com",
+            role: "ADMIN",
+          };
+        }
+        
+        // Add more users here or connect to database
         return null;
       }
     })
@@ -20,9 +33,18 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async session({ session, token }) {
+      if (token.role) {
+        session.user = {
+          ...session.user,
+          role: token.role as string,
+        };
+      }
       return session;
     },
     async jwt({ token, user }) {
+      if (user) {
+        token.role = (user as any).role;
+      }
       return token;
     }
   }
