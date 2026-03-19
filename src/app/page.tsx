@@ -49,7 +49,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <a href="/metrix" className="glass-card p-6 hover:bg-white/10 transition">
             <h3 className="text-lg font-semibold mb-2">📊 Metrix Analytics</h3>
-            <p className="text-slate-400 text-sm">Reportes diarios de campañas Meta Ads</p>
+            <p className="text-slate-400 text-sm">Tabla de performance con semáforo</p>
           </a>
           <a href="/clickup" className="glass-card p-6 hover:bg-white/10 transition">
             <h3 className="text-lg font-semibold mb-2">✅ ClickUp Monitor</h3>
