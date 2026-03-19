@@ -1,6 +1,8 @@
 // Submission & Status Tracking Types
 // FrameLab Academy
 
+import type { Lesson, User } from './course'
+
 export type SubmissionStatus = 'PENDING' | 'SUBMITTED' | 'REVIEWED' | 'REVISION_REQUESTED'
 export type FeedbackStatus = 'PENDING' | 'COMPLETED'
 
