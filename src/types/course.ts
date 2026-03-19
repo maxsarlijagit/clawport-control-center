@@ -1,6 +1,8 @@
 // Course System Types
 // FrameLab Academy
 
+import type { Submission } from './submission'
+
 export type CourseLevel = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED'
 export type LessonType = 'VIDEO' | 'TEXT' | 'QUIZ' | 'ASSIGNMENT' | 'DOWNLOAD' | 'LINK'
 export type EnrollmentStatus = 'ACTIVE' | 'COMPLETED' | 'DROPPED' | 'PENDING'
