@@ -32,7 +32,7 @@ export default function RoleGuard({
   }
 
   // Not authenticated
-  if (!session) {
+  if (!session || !session.user) {
     router.push("/login")
     return null
   }
