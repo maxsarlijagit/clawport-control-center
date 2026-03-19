@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 
 export default function LoginPage() {
   const router = useRouter()
-  const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -18,7 +18,7 @@ export default function LoginPage() {
 
     try {
       const result = await signIn("credentials", {
-        email,
+        username,
         password,
         redirect: false,
       })
@@ -55,17 +55,17 @@ export default function LoginPage() {
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-metrix-muted mb-2">
-                Email
+              <label htmlFor="username" className="block text-sm font-medium text-metrix-muted mb-2">
+                Usuario
               </label>
               <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-metrix-muted focus:outline-none focus:ring-2 focus:ring-metrix-purple"
-                placeholder="tu@email.com"
+                placeholder="admin"
               />
             </div>
 
@@ -115,9 +115,9 @@ export default function LoginPage() {
 
         {/* Demo Credentials */}
         <div className="mt-8 p-4 bg-white/5 rounded-lg border border-white/10">
-          <p className="text-xs text-metrix-muted text-center mb-2">Demo credentials:</p>
+          <p className="text-xs text-metrix-muted text-center mb-2">Credenciales Admin:</p>
           <p className="text-xs text-center text-metrix-muted">
-            student@framelab.com / student123
+            admin / admin123
           </p>
         </div>
       </div>
