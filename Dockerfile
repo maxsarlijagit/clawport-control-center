@@ -38,7 +38,8 @@ COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 
 # Copy built files
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
+RUN mkdir -p ./public
 
 # Expose port
 EXPOSE 3000
