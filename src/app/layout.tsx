@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Barlow_Condensed } from 'next/font/google'
 import '@/styles/globals.css'
+import Providers from './providers'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -34,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="dark">
       <body className={`${inter.variable} ${barlow.variable} font-sans`}>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
