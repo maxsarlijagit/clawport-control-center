@@ -10,34 +10,17 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials, req) {
-        // Admin credentials from env or default
         const adminUser = process.env.ADMIN_USERNAME || "admin";
         const adminPass = process.env.ADMIN_PASSWORD || "admin123";
         
-        // Student credentials from env or default
-        const studentUser = process.env.STUDENT_USERNAME || "student";
-        const studentPass = process.env.STUDENT_PASSWORD || "student123";
-        
-        // Check admin
         if (credentials?.username === adminUser && credentials?.password === adminPass) {
           return {
             id: "1",
             name: "Administrador",
-            email: "admin@framelab.com",
+            email: "admin@clawport.com",
             role: "ADMIN",
           };
         }
-        
-        // Check student
-        if (credentials?.username === studentUser && credentials?.password === studentPass) {
-          return {
-            id: "2",
-            name: "Estudiante",
-            email: "student@framelab.com",
-            role: "STUDENT",
-          };
-        }
-        
         return null;
       }
     })

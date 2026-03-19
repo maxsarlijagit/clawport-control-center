@@ -1,116 +1,46 @@
-# FrameLab Academy - Web Platform
+# 🐾 Clawport Control Center
 
-**Digital Campus Platform** - Next.js 14 + TailwindCSS + TypeScript
-
----
-
-## 🚀 Tech Stack
-
-- **Framework:** Next.js 14 (App Router)
-- **Language:** TypeScript
-- **Styling:** TailwindCSS
-- **Animations:** Framer Motion
-- **Icons:** Lucide React
-- **Font:** Inter + Barlow Condensed
+**AI Operations Control Center** - Dashboard visual para operaciones de IA
 
 ---
 
-## 🎨 Design System
+## 🚀 Características
 
-Basado en **Metrix Analytics**:
-
-### Colors
-- Primary: `#7C3AED` (Violeta)
-- Secondary: `#F4A7BB` (Rosa)
-- Background: `#050505` (Negro)
-- Text: `#FAFAFA` (Blanco)
-
-### Typography
-- Headings: Barlow Condensed
-- Body: Inter
-
-### Effects
-- Glassmorphism
-- Gradient backgrounds
-- Smooth transitions
+- 📊 **Metrix Analytics** - Reportes de campañas Meta Ads
+- ✅ **ClickUp Monitor** - 71 tareas monitoreadas en tiempo real
+- 💚 **System Health** - Estado de servicios y contenedores
+- 🔐 **Auth** - Login con roles (Admin)
 
 ---
 
-## 📁 Project Structure
+## 🛠️ Stack Tecnológico
 
-```
-framelab-academy-web/
-├── src/
-│   ├── app/
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── components/
-│   │   └── ui/
-│   ├── lib/
-│   └── styles/
-│       └── globals.css
-├── public/
-│   └── images/
-├── package.json
-├── tsconfig.json
-├── tailwind.config.js
-├── next.config.js
-└── README.md
-```
+- **Frontend:** Next.js 14 + TypeScript + TailwindCSS
+- **Auth:** NextAuth.js
+- **Charts:** Recharts
+- **Deploy:** Docker + VPS (puerto 3100)
 
 ---
 
-## 🛠️ Setup
+## 🏃 Quick Start
 
-### Install Dependencies
 ```bash
+# Install
 npm install
-```
 
-### Development
-```bash
+# Dev
 npm run dev
-```
 
-### Build
-```bash
+# Build
 npm run build
-npm run start
+
+# Start
+npm start
 ```
 
 ---
 
-## 🚀 Production Deployment
-
-### Docker Deployment (Recommended)
-
-**1. Clone repository on server:**
-```bash
-ssh almalinux@54.36.179.126
-cd /home/almalinux
-git clone https://github.com/maxsarlijagit/framelab-academy-web.git
-cd framelab-academy-web
-```
-
-**2. Configure environment:**
-```bash
-cp .env.example .env
-nano .env  # Edit with your credentials
-```
-
-**3. Deploy:**
-```bash
-chmod +x deploy.sh
-./deploy.sh
-```
-
-**4. Verify:**
-```bash
-docker-compose ps
-curl http://localhost:3000
-```
-
-### Manual Docker Commands
+## 🐳 Docker Deploy
 
 ```bash
 # Build
@@ -119,66 +49,44 @@ docker-compose build
 # Start
 docker-compose up -d
 
-# View logs
+# Logs
 docker-compose logs -f
-
-# Stop
-docker-compose down
-```
-
-### Nginx Configuration
-
-The deployment includes nginx as a reverse proxy:
-- Port 80 → Frontend (port 3000)
-- Port 443 → HTTPS (when SSL is configured)
-
-For SSL setup, use Let's Encrypt:
-```bash
-docker run --rm -v ./nginx/ssl:/etc/letsencrypt certbot/certbot certonly --webroot
 ```
 
 ---
 
-## 📋 Roadmap
+## 🔐 Credenciales
 
-### ✅ Phase 1: Foundation (COMPLETED)
-- [x] Next.js 14 setup
-- [x] TypeScript configuration
-- [x] TailwindCSS with custom theme
-- [x] Design tokens
-- [x] Basic folder structure
-- [x] Landing page (Hero + Features)
-
-### 🟡 Phase 2: Components (IN PROGRESS)
-- [ ] Header component
-- [ ] Footer component
-- [ ] Navigation
-- [ ] Button variants
-- [ ] Card components
-- [ ] Form components
-
-### ⏳ Phase 3: Pages
-- [ ] Courses listing
-- [ ] Course detail
-- [ ] Student dashboard
-- [ ] Auth pages (login/register)
-- [ ] Profile page
-
-### ⏳ Phase 4: Features
-- [ ] Authentication (Clerk/NextAuth)
-- [ ] Database integration
-- [ ] Payment integration
-- [ ] Video player
-- [ ] Progress tracking
+| Usuario | Password |
+|---------|----------|
+| admin | admin123 |
 
 ---
 
-## 🎯 ClickUp Task
+## 📁 Estructura
 
-**Task:** [1.1 Setup del Proyecto - Next.js + TailwindCSS](https://app.clickup.com/t/86ag9qnc3)
+```
+src/
+├── app/
+│   ├── dashboard/    # Dashboard principal
+│   ├── metrix/       # Metrix Analytics
+│   ├── clickup/      # ClickUp Monitor
+│   ├── meta/         # Meta Ads
+│   ├── health/       # System Health
+│   ├── login/        # Login page
+│   └── api/          # API routes
+├── components/       # React components
+├── lib/             # Utilities & auth
+└── types/           # TypeScript types
+```
 
 ---
 
-**Created:** 2026-03-19  
-**Status:** 🟡 In Progress  
-**Agent:** OpenClaw Multi-Agent System
+## 🌐 URLs
+
+- **Local:** http://localhost:3100
+- **VPS:** http://54.36.179.126:3100
+
+---
+
+*Clawport Control Center - Operaciones AI en un solo lugar*

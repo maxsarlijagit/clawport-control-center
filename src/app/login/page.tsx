@@ -24,104 +24,76 @@ export default function LoginPage() {
       })
 
       if (result?.error) {
-        setError(result.error)
+        setError("Credenciales inválidas")
       } else {
         router.push("/dashboard")
         router.refresh()
       }
     } catch (err) {
-      setError("Error al iniciar sesión. Intentá de nuevo.")
+      setError("Error al iniciar sesión")
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen bg-metrix-bg flex items-center justify-center px-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 flex items-center justify-center px-6">
       <div className="w-full max-w-md">
-        {/* Logo */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-display font-bold gradient-text">FrameLab Academy</h1>
-          <p className="text-metrix-muted mt-2">Iniciá sesión para continuar</p>
+          <h1 className="text-3xl font-bold gradient-text">🐾 Clawport</h1>
+          <p className="text-slate-400 mt-2">AI Operations Control Center</p>
         </div>
 
-        {/* Login Form */}
-        <div className="glass-card">
+        <div className="glass-card p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
-              <div className="p-4 bg-metrix-red/10 border border-metrix-red rounded-lg text-metrix-red text-sm">
+              <div className="p-4 bg-red-500/10 border border-red-500 rounded-lg text-red-400 text-sm">
                 {error}
               </div>
             )}
 
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-metrix-muted mb-2">
+              <label className="block text-sm font-medium text-slate-300 mb-2">
                 Usuario
               </label>
               <input
-                id="username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-metrix-muted focus:outline-none focus:ring-2 focus:ring-metrix-purple"
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 placeholder="admin"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-metrix-muted mb-2">
+              <label className="block text-sm font-medium text-slate-300 mb-2">
                 Contraseña
               </label>
               <input
-                id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-metrix-muted focus:outline-none focus:ring-2 focus:ring-metrix-purple"
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 placeholder="••••••••"
               />
-            </div>
-
-            <div className="flex items-center justify-between">
-              <label className="flex items-center">
-                <input type="checkbox" className="w-4 h-4 rounded bg-white/5 border-white/10 text-metrix-purple focus:ring-metrix-purple" />
-                <span className="ml-2 text-sm text-metrix-muted">Recordarme</span>
-              </label>
-              <a href="/forgot-password" className="text-sm text-metrix-purple hover:text-metrix-purple-light">
-                ¿Olvidaste tu contraseña?
-              </a>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-lg font-medium hover:from-indigo-600 hover:to-violet-600 transition disabled:opacity-50"
             >
               {loading ? "Iniciando sesión..." : "Iniciar sesión"}
             </button>
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-sm text-metrix-muted">
-              ¿No tenés una cuenta?{" "}
-              <a href="/register" className="text-metrix-purple hover:text-metrix-purple-light">
-                Registrate
-              </a>
+          <div className="mt-6 p-4 bg-white/5 rounded-lg border border-white/10">
+            <p className="text-xs text-slate-400 text-center">
+              Demo: <strong>admin</strong> / <strong>admin123</strong>
             </p>
           </div>
-        </div>
-
-        {/* Demo Credentials */}
-        <div className="mt-8 p-4 bg-white/5 rounded-lg border border-white/10">
-          <p className="text-xs text-metrix-muted text-center mb-2">Credenciales:</p>
-          <p className="text-xs text-center text-metrix-muted">
-            Admin: <strong>admin</strong> / <strong>admin123</strong>
-          </p>
-          <p className="text-xs text-center text-metrix-muted">
-            Estudiante: <strong>student</strong> / <strong>student123</strong>
-          </p>
         </div>
       </div>
     </div>
