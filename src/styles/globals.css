@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-app: #050505;
+    --bg-sidebar: rgba(255, 255, 255, 0.02);
+    --bg-card: rgba(255, 255, 255, 0.03);
+    --border-color: rgba(255, 255, 255, 0.06);
+    --text-primary: #FAFAFA;
+    --text-secondary: rgba(255, 255, 255, 0.70);
+    --text-muted: rgba(255, 255, 255, 0.35);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-metrix-bg text-metrix-text font-sans antialiased;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-opacity-30 backdrop-blur-md border border-white/10;
+  }
+
+  .glass-card {
+    @apply glass rounded-xl p-6;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-metrix-purple to-metrix-pink bg-clip-text text-transparent;
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-metrix-purple to-metrix-purple-dark text-white font-semibold rounded-lg hover:from-metrix-purple-dark hover:to-metrix-purple-light transition shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 border border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

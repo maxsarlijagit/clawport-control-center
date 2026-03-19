@@ -1,0 +1,278 @@
+// FrameLab Academy Database Schema
+// PostgreSQL + Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USERS & AUTH
+// ============================================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  avatarUrl     String?
+  avatarKey     String?   @default("fox")
+  role          UserRole  @default(STUDENT)
+  emailVerified DateTime?
+  
+  // Profile
+  firstName     String?
+  lastName      String?
+  phone         String?
+  whatsapp      String?
+  address       String?
+  bio           String?
+  
+  // Timestamps
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  lastLoginAt   DateTime?
+  
+  // Relations
+  enrollments   Enrollment[]
+  submissions   Submission[]
+  feedbacks     Feedback[]
+  certificates  Certificate[]
+  sessions      Session[]
+  
+  @@index([email])
+  @@index([role])
+}
+
+enum UserRole {
+  STUDENT
+  INSTRUCTOR
+  ADMIN
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionToken String   @unique
+  expires      DateTime
+  
+  @@index([userId])
+}
+
+// ============================================
+// COURSES & PROGRAMS
+// ============================================
+
+model Program {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  thumbnail   String?
+  duration    Int?     // weeks
+  level       Level    @default(BEGINNER)
+  active      Boolean  @default(true)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  courses     Course[]
+  cohorts     Cohort[]
+  
+  @@index([slug])
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  thumbnail   String?
+  duration    Int?     // hours
+  level       Level    @default(BEGINNER)
+  price       Decimal? @db.Decimal(10, 2)
+  active      Boolean  @default(true)
+  
+  programId   String?
+  program     Program? @relation(fields: [programId], references: [id])
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  modules     Module[]
+  enrollments Enrollment[]
+  
+  @@index([slug])
+  @@index([programId])
+}
+
+enum Level {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+model Module {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  order       Int
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  lessons     Lesson[]
+  
+  @@index([courseId])
+}
+
+model Lesson {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  type        LessonType @default(VIDEO)
+  order       Int
+  duration    Int?      // minutes
+  videoUrl    String?
+  content     String?   // markdown content
+  resources   String[]  // download URLs
+  
+  moduleId    String
+  module      Module    @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  submissions Submission[]
+  
+  @@index([moduleId])
+}
+
+enum LessonType {
+  VIDEO
+  TEXT
+  QUIZ
+  ASSIGNMENT
+  DOWNLOAD
+  LINK
+}
+
+// ============================================
+// COHORTS & ENROLLMENTS
+// ============================================
+
+model Cohort {
+  id          String   @id @default(cuid())
+  name        String
+  programId   String
+  program     Program  @relation(fields: [programId], references: [id])
+  startDate   DateTime
+  endDate     DateTime?
+  maxStudents Int      @default(50)
+  active      Boolean  @default(true)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  enrollments Enrollment[]
+  
+  @@index([programId])
+}
+
+model Enrollment {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id])
+  cohortId  String?
+  cohort    Cohort?  @relation(fields: [cohortId], references: [id])
+  
+  status    EnrollmentStatus @default(ACTIVE)
+  progress  Float    @default(0) // percentage
+  
+  enrolledAt DateTime @default(now())
+  completedAt DateTime?
+  
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
+}
+
+enum EnrollmentStatus {
+  ACTIVE
+  COMPLETED
+  DROPPED
+  PENDING
+}
+
+// ============================================
+// SUBMISSIONS & FEEDBACK
+// ============================================
+
+model Submission {
+  id        String   @id @default(cuid())
+  lessonId  String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  
+  content   String?  // markdown or text
+  files     String[] // URLs
+  status    SubmissionStatus @default(PENDING)
+  
+  submittedAt DateTime @default(now())
+  gradedAt    DateTime?
+  
+  feedbacks Feedback[]
+  
+  @@unique([userId, lessonId])
+  @@index([userId])
+  @@index([lessonId])
+}
+
+enum SubmissionStatus {
+  PENDING
+  SUBMITTED
+  REVIEWED
+  REVISION_REQUESTED
+}
+
+model Feedback {
+  id           String   @id @default(cuid())
+  submissionId String
+  submission   Submission @relation(fields: [submissionId], references: [id])
+  userId       String     // instructor who gave feedback
+  user         User       @relation(fields: [userId], references: [id])
+  
+  comment      String
+  grade        Float?     // 0-100
+  rubricScores Json?      // {criterion: score}
+  
+  createdAt    DateTime   @default(now())
+  
+  @@index([submissionId])
+}
+
+// ============================================
+// CERTIFICATES
+// ============================================
+
+model Certificate {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  courseId     String?
+  programId    String?
+  certificateNumber String @unique
+  issuedAt     DateTime @default(now())
+  downloadUrl  String?
+  
+  @@index([userId])
+}
