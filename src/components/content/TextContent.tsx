@@ -1,6 +1,6 @@
 "use client"
 
-import { FileText, Download, ExternalLink } from "lucide-react"
+import { FileText, Download, ExternalLink as ExternalLinkIcon } from "lucide-react"
 
 interface TextContentProps {
   content: string
@@ -66,7 +66,7 @@ export function ExternalLink({ url, title, description, domain }: ExternalLinkPr
       className="glass-card hover:bg-white/10 transition flex items-center gap-4 p-4"
     >
       <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-metrix-green/20 to-metrix-green-bright/20 flex items-center justify-center flex-shrink-0">
-        <ExternalLink className="w-6 h-6 text-metrix-green-bright" />
+        <ExternalLinkIcon className="w-6 h-6 text-metrix-green-bright" />
       </div>
       <div className="flex-1">
         <h4 className="text-white font-medium mb-1">{title}</h4>
