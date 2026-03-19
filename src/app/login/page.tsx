@@ -115,9 +115,12 @@ export default function LoginPage() {
 
         {/* Demo Credentials */}
         <div className="mt-8 p-4 bg-white/5 rounded-lg border border-white/10">
-          <p className="text-xs text-metrix-muted text-center mb-2">Credenciales Admin:</p>
+          <p className="text-xs text-metrix-muted text-center mb-2">Credenciales:</p>
           <p className="text-xs text-center text-metrix-muted">
-            admin / admin123
+            Admin: <strong>admin</strong> / <strong>admin123</strong>
+          </p>
+          <p className="text-xs text-center text-metrix-muted">
+            Estudiante: <strong>student</strong> / <strong>student123</strong>
           </p>
         </div>
       </div>

@@ -14,6 +14,11 @@ export const authOptions: NextAuthOptions = {
         const adminUser = process.env.ADMIN_USERNAME || "admin";
         const adminPass = process.env.ADMIN_PASSWORD || "admin123";
         
+        // Student credentials from env or default
+        const studentUser = process.env.STUDENT_USERNAME || "student";
+        const studentPass = process.env.STUDENT_PASSWORD || "student123";
+        
+        // Check admin
         if (credentials?.username === adminUser && credentials?.password === adminPass) {
           return {
             id: "1",
@@ -23,7 +28,16 @@ export const authOptions: NextAuthOptions = {
           };
         }
         
-        // Add more users here or connect to database
+        // Check student
+        if (credentials?.username === studentUser && credentials?.password === studentPass) {
+          return {
+            id: "2",
+            name: "Estudiante",
+            email: "student@framelab.com",
+            role: "STUDENT",
+          };
+        }
+        
         return null;
       }
     })
