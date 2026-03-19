@@ -33,6 +33,7 @@ module.exports = {
           muted: 'rgba(255, 255, 255, 0.70)',
           muted3: 'rgba(255, 255, 255, 0.35)',
         },
+        border: 'rgba(255, 255, 255, 0.06)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
