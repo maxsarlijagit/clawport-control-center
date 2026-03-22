@@ -1,27 +1,47 @@
 {
   "name": "clawport-control-center",
-  "version": "1.0.0",
-  "private": true,
+  "version": "2.0.0",
+  "description": "Clawport Control Center - Project Management with AI Agents",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "next dev -p 3100",
-    "build": "next build",
-    "start": "next start -p 3100",
-    "lint": "next lint"
+    "dev": "nodemon src/index.js",
+    "build": "echo 'No transpilation needed for vanilla JS'",
+    "start": "node src/index.js",
+    "docker:build": "docker-compose -f docker/docker-compose.yml build",
+    "docker:up": "docker-compose -f docker/docker-compose.yml up -d",
+    "docker:down": "docker-compose -f docker/docker-compose.yml down",
+    "docker:logs": "docker-compose -f docker/docker-compose.yml logs -f",
+    "docker:restart": "docker-compose -f docker/docker-compose.yml restart",
+    "db:migrate": "node scripts/migrate.js",
+    "db:seed": "node scripts/seed.js",
+    "test": "jest",
+    "lint": "eslint src/"
   },
+  "keywords": [
+    "project-management",
+    "ai-agents",
+    "docker",
+    "postgresql"
+  ],
+  "author": "Clawport Team",
+  "license": "MIT",
   "dependencies": {
-    "next": "14.1.0",
-    "next-auth": "^4.24.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "recharts": "^2.10.0"
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "ioredis": "^5.3.2",
+    "uuid": "^9.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.0",
-    "tailwindcss": "^3.4.0",
-    "typescript": "^5.0.0"
+    "nodemon": "^3.0.2",
+    "jest": "^29.7.0",
+    "eslint": "^8.56.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
